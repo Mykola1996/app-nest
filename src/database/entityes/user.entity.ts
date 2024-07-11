@@ -18,5 +18,8 @@ export class UserEntity {
   lastName: string;
 
   @Column()
+  age: string;
+
+  @Column()
   isActive: boolean;
 }
