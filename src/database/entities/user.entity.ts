@@ -20,6 +20,6 @@ export class UserEntity {
   @Column()
   age: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
 }
