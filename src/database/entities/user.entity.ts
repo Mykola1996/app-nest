@@ -22,4 +22,7 @@ export class UserEntity {
 
   @Column({ default: true })
   isActive: boolean;
+    refreshTokens: any;
+    likes: any;
+    articles: any;
 }

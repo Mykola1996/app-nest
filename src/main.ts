@@ -13,7 +13,7 @@ async function bootstrap() {
   const appConfig = configService.get<AppConfig>('app');
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
+    .setTitle('Marta example')
     .setDescription('The cats API description')
     .setVersion('1.0.0')
     .addBearerAuth({
