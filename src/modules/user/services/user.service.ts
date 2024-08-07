@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 
-import { LoggerService } from '../logger/logger.service';
-import { UserRepository } from '../repository/services/user.repository';
-import { CreateUserReqDto } from './dto/req/create-user.req.dto';
-import { UpdateUserReqDto } from './dto/req/update-user.req.dto';
+import { LoggerService } from '../../logger/logger.service';
+import { UserRepository } from '../../repository/services/user.repository';
+import { UpdateUserReqDto } from '../dto/req/update-user.req.dto';
 
 @Injectable()
 export class UserService {
@@ -11,14 +10,6 @@ export class UserService {
     private readonly logger: LoggerService,
     private readonly userRepository: UserRepository,
   ) {}
-
-  public async create(createUserDto: CreateUserReqDto): Promise<any> {
-    return await this.userRepository.save({
-      email: 'asdfd',
-      password: 'asdf',
-      name: 'asdf',
-    });
-  }
 
   public async findAll(): Promise<any> {
     return `This action returns all user`;
@@ -37,5 +28,12 @@ export class UserService {
 
   public async remove(id: string): Promise<any> {
     return `This action removes a #${id} user`;
+  }
+
+  public async isEmailUniqueOrThrow(email: string): Promise<void> {
+    const user = await this.userRepository.findOneBy({ email });
+    if (user) {
+      throw new ConflictException('Email is already taken');
+    }
   }
 }
